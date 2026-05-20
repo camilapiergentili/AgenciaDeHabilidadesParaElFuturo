@@ -11,7 +11,6 @@ public class Main {
         int option;
 
         do{
-
             System.out.println("\n--- MENÚ ---");
             System.out.println("1. Agregar Producto");
             System.out.println("2. Listar Productos");

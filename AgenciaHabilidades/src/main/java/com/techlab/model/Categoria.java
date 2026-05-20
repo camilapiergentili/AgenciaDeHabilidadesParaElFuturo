@@ -1,6 +1,8 @@
 package com.techlab.model;
 
-public class Categoria {
+import com.techlab.interfaces.Identificable;
+
+public class Categoria implements Identificable {
     private int codigo;
     private String nombre;
     private String descripcion;
@@ -19,6 +21,8 @@ public class Categoria {
         this.nombre = nombre;
     }
 
+
+    @Override
     public int getCodigo() {
         return codigo;
     }
@@ -33,5 +37,14 @@ public class Categoria {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    @Override
+    public String toString() {
+        return "Categoria{" +
+                "codigo=" + codigo +
+                ", nombre='" + nombre + '\'' +
+                ", descripcion='" + descripcion + '\'' +
+                '}';
     }
 }

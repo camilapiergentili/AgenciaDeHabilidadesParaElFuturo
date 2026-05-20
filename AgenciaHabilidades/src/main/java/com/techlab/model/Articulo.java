@@ -1,9 +1,10 @@
 package com.techlab.model;
 
 import com.techlab.interfaces.Calculable;
+import com.techlab.interfaces.Identificable;
 
-public abstract class Articulo implements Calculable {
-    private long id;
+public abstract class Articulo implements Calculable, Identificable {
+    private int codigo;
     private String name;
     private double price;
     private int stock;
@@ -12,7 +13,7 @@ public abstract class Articulo implements Calculable {
     private static int contador = 1;
 
     public Articulo(String name, double price, int stock, Categoria categoria) {
-        this.id = contador++;
+        this.codigo = contador++;
         this.name = name;
         this.price = price;
         this.stock = stock;
@@ -23,12 +24,12 @@ public abstract class Articulo implements Calculable {
     public abstract String getTipoArticulo();
     protected abstract String getDetalleEspecifico();
 
-    public long getId() {
-        return id;
+    public int getCodigo() {
+        return codigo;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
     }
 
     public String getName() {
@@ -65,7 +66,7 @@ public abstract class Articulo implements Calculable {
 
     @Override
     public String toString() {
-        return "Articulo { id=" + id +
+        return "Articulo { id=" + codigo +
                 ", tipo=" + getTipoArticulo() +
                 ", nombre='" + name + "'" +
                 ", precio=" + price +

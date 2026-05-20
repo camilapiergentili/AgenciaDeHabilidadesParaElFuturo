@@ -30,5 +30,4 @@ public class ArticuloAlimenticio extends Articulo {
     protected String getDetalleEspecifico() {
         return "Días para vencimiento: " + diasVencimiento;
     }
-
 }
