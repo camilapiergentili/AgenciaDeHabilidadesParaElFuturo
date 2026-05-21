@@ -6,9 +6,10 @@ public class Categoria implements Identificable {
     private int codigo;
     private String nombre;
     private String descripcion;
+    private static int contador = 1;
 
-    public Categoria(int codigo, String nombre, String descripcion) {
-        this.codigo = codigo;
+    public Categoria(String nombre, String descripcion) {
+        this.codigo = contador++;
         this.nombre = nombre;
         this.descripcion = descripcion;
     }

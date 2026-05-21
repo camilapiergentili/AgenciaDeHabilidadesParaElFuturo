@@ -10,10 +10,8 @@ public abstract class Articulo implements Calculable, Identificable {
     private int stock;
     private Categoria categoria;
 
-    private static int contador = 1;
-
-    public Articulo(String name, double price, int stock, Categoria categoria) {
-        this.codigo = contador++;
+    public Articulo(int codigo, String name, double price, int stock, Categoria categoria) {
+        this.codigo = codigo;
         this.name = name;
         this.price = price;
         this.stock = stock;

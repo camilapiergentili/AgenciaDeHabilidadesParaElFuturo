@@ -19,7 +19,6 @@ public class Repositorio<T extends Identificable> {
         for (T elemento : db){
             if(elemento.getCodigo() == codigo) return elemento;
         }
-
         return null;
     }
 
