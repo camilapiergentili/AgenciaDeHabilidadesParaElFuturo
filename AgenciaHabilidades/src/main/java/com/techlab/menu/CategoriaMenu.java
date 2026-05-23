@@ -4,9 +4,6 @@ import com.techlab.model.Articulo;
 import com.techlab.model.Categoria;
 import com.techlab.repository.Repositorio;
 import com.techlab.utils.LectorConsola;
-import com.techlab.validaciones.Validator;
-
-import java.util.Scanner;
 
 public class CategoriaMenu {
 
@@ -22,19 +19,11 @@ public class CategoriaMenu {
 
         String name = LectorConsola.leerTexto("Ingrese nombre de la categoria");
 
-        if(!Validator.validarTextoNoVacio(name)){
-            System.out.println("El campo Nombre no puede estar vacio");
-        }
-
         if(buscarPorNombre(name) != null){
             System.out.println("El nombre ingresado ya se encuentra cargado");
         }
 
         String description = LectorConsola.leerTexto("Ingrese descripción de la categoria");
-
-        if(!Validator.validarTextoNoVacio(description)){
-            System.out.println("El campo Descripcion no puede estar vacio");
-        }
 
         Categoria categoria = new Categoria(name, description);
 
@@ -81,17 +70,7 @@ public class CategoriaMenu {
             return;
         }
 
-        if(!Validator.validarTextoNoVacio(nombreNuevo)){
-            System.out.println("El campo Nombre no puede estar vacio");
-            return;
-        }
-
         String descripcionNueva = LectorConsola.leerTexto("Ingrese la nueva descripción: ");
-
-        if(!Validator.validarTextoNoVacio(descripcionNueva)){
-            System.out.println("La descripción no puede estar vacio");
-            return;
-        }
 
         Categoria categoria = dbCategoria.findByCodigo(code);
         categoria.setNombre(nombreNuevo);
@@ -128,7 +107,6 @@ public class CategoriaMenu {
         }
 
         return false;
-
     }
 
 }

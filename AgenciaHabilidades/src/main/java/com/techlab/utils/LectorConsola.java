@@ -1,5 +1,7 @@
 package com.techlab.utils;
 
+import com.techlab.validaciones.Validator;
+
 import java.util.Scanner;
 
 public final class LectorConsola {
@@ -8,7 +10,12 @@ public final class LectorConsola {
 
     public static String leerTexto(String mensaje){
         System.out.println(mensaje);
-        return sc.nextLine().trim();
+        String respuesta = sc.nextLine().trim();
+        while(!Validator.validarTextoNoVacio(respuesta)){
+            System.out.println("El campo no puede estar vacio");
+            respuesta = sc.nextLine().trim();
+        }
+        return respuesta;
     }
 
     public static int leerIntegrer(String mensaje){
@@ -18,7 +25,9 @@ public final class LectorConsola {
             sc.next();
         }
 
-        return sc.nextInt();
+        int valor = sc.nextInt();
+        sc.nextLine();
+        return valor;
     }
 
     public static double leerDouble(String mensaje) {
@@ -27,6 +36,8 @@ public final class LectorConsola {
             System.out.print("Ingresá un número válido: ");
             sc.next();
         }
-        return sc.nextDouble();
+        double valor = sc.nextDouble();
+        sc.nextLine();
+        return valor;
     }
 }

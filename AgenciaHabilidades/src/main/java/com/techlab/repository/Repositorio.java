@@ -31,4 +31,8 @@ public class Repositorio<T extends Identificable> {
         return db.remove(objeto);
     }
 
+    public boolean estaVacia(){
+        return db.isEmpty();
+    }
+
 }

@@ -3,8 +3,8 @@ package com.techlab.model;
 public class ArticuloAlimenticio extends Articulo {
     private int diasVencimiento;
 
-    public ArticuloAlimenticio(String name, double price, int stock, Categoria categoria, int diasVencimiento) {
-        super(name, price, stock, categoria);
+    public ArticuloAlimenticio(int codigo, String name, double price, int stock, Categoria categoria, int diasVencimiento) {
+        super(codigo, name, price, stock, categoria);
         this.diasVencimiento = diasVencimiento;
     }
 

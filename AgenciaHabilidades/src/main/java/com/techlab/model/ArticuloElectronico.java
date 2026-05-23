@@ -4,8 +4,8 @@ public class ArticuloElectronico extends Articulo {
 
     private int garantiaEnMeses;
 
-    public ArticuloElectronico(String name, double price, int stock, Categoria categoria, int garantiaEnMeses) {
-        super(name, price, stock, categoria);
+    public ArticuloElectronico(int codigo, String name, double price, int stock, Categoria categoria, int garantiaEnMeses) {
+        super(codigo, name, price, stock, categoria);
         this.garantiaEnMeses = garantiaEnMeses;
     }
 
