@@ -35,8 +35,10 @@ public class ArticuloMenu implements Menu {
 
 
         int option;
-        mostrarMenu();
+
         do{
+            System.out.println("####################");
+            mostrarMenu();
             option = LectorConsola.leerIntegrer("Ingrese una opción: ");
 
             switch (option) {
@@ -80,19 +82,10 @@ public class ArticuloMenu implements Menu {
         double precio = LectorConsola.leerDouble("Ingrese el precio: ");
         int stock = LectorConsola.leerIntegrer("Ingrese stock: ");
 
-        String nombreCategoria = LectorConsola.leerTexto("Ingrese nombre de la categoria");
-
-        Categoria categoria = null;
-
-        for(Categoria c : dbCategoria.listar()){
-            if(c.getNombre().equalsIgnoreCase(nombreCategoria)){
-                categoria = c;
-            }
-        }
+        Categoria categoria = listarYElegirCategoria();
 
         int op;
         do{
-
             System.out.println("1- ARTICULO ALIMENTICIO");
             System.out.println("2- ARTICULO ELECTRONICO");
             System.out.println("3- SALIR");
@@ -100,6 +93,19 @@ public class ArticuloMenu implements Menu {
 
         } while (op != 1 && op != 2 && op != 3);
 
+        ejecutarOpciones(op, code, name, precio, stock, categoria);
+    }
+
+    public void listarArticulos(){
+        if(dbArticulo.estaVacia()){
+            System.out.println("No hay articulos para mostrar");
+        }
+        for (Articulo a : dbArticulo.listar()){
+            System.out.println(a);
+        }
+    }
+
+    private void ejecutarOpciones(int op, int code, String name, double precio, int stock, Categoria categoria){
         if(op == 3) return;
 
         if(op == 1){
@@ -115,16 +121,32 @@ public class ArticuloMenu implements Menu {
             dbArticulo.create(articuloElectronico);
             System.out.println("Articulo electronico agregado con exito");
         }
-
     }
 
-    public void listarArticulos(){
-        if(dbArticulo.estaVacia()){
-            System.out.println("No hay articulos para mostrar");
+    private Categoria listarYElegirCategoria(){
+        String nombreCategoria;
+        Categoria categoria = null;
+
+        while (categoria == null) {
+            //primero listás las disponibles
+            System.out.println("\nCategorías disponibles:");
+            for (Categoria c : dbCategoria.listar()) {
+                System.out.println("  - " + c.getNombre());
+            }
+
+            nombreCategoria = LectorConsola.leerTexto("Ingrese nombre de la categoría: ");
+
+            for (Categoria c : dbCategoria.listar()) {
+                if (c.getNombre().equalsIgnoreCase(nombreCategoria)) {
+                    categoria = c;
+                }
+            }
+
+            if (categoria == null) {
+                System.out.println("No existe una categoría con ese nombre, intente nuevamente.");
+            }
         }
-        for (Articulo a : dbArticulo.listar()){
-            System.out.println(a);
-        }
+        return categoria;
     }
 
 }
