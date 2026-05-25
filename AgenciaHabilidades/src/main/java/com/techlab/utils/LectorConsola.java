@@ -17,27 +17,43 @@ public final class LectorConsola {
         }
         return respuesta;
     }
-
-    public static int leerIntegrer(String mensaje){
-        System.out.println(mensaje);
-        while(!sc.hasNextInt()){
+    private static int leerIntValido() {
+        while (!sc.hasNextInt()) {
             System.out.println("Ingrese un número válido: ");
             sc.next();
         }
-
         int valor = sc.nextInt();
         sc.nextLine();
         return valor;
     }
 
-    public static double leerDouble(String mensaje) {
-        System.out.print(mensaje);
+    public static int leerIntegrer(String mensaje) {
+        System.out.println(mensaje);
+        int valor = leerIntValido();
+        while (!Validator.validarNoNegativo(valor)) {
+            System.out.println("El número no puede ser negativo, reingrese: ");
+            valor = leerIntValido();
+        }
+        return valor;
+    }
+
+    private static double leerDoubleValido() {
         while (!sc.hasNextDouble()) {
-            System.out.print("Ingresá un número válido: ");
+            System.out.println("Ingresá un número válido: ");
             sc.next();
         }
         double valor = sc.nextDouble();
         sc.nextLine();
+        return valor;
+    }
+
+    public static double leerDouble(String mensaje) {
+        System.out.println(mensaje);
+        double valor = leerDoubleValido();
+        while (!Validator.validarNoNegativo(valor)) {
+            System.out.println("El número no puede ser negativo, reingrese: ");
+            valor = leerDoubleValido();
+        }
         return valor;
     }
 }

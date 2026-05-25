@@ -1,5 +1,6 @@
 package com.techlab.menu;
 
+import com.techlab.interfaces.Menu;
 import com.techlab.model.Articulo;
 import com.techlab.model.ArticuloAlimenticio;
 import com.techlab.model.ArticuloElectronico;
@@ -7,9 +8,8 @@ import com.techlab.model.Categoria;
 import com.techlab.repository.Repositorio;
 import com.techlab.utils.LectorConsola;
 
-import java.util.List;
 
-public class ArticuloMenu {
+public class ArticuloMenu implements Menu {
     private final Repositorio<Categoria> dbCategoria;
     private final Repositorio<Articulo> dbArticulo;
 
@@ -18,11 +18,53 @@ public class ArticuloMenu {
         this.dbArticulo = dbArticulo;
     }
 
+
+    @Override
+    public void mostrarMenu() {
+        System.out.println("\n--- MENÚ ARTICULOS ---");
+        System.out.println("1. Ingresar Articulo");
+        System.out.println("2. Listar Articulos");
+        System.out.println("3. Consulta Articulo por ID");
+        System.out.println("4. Modificar Articulo");
+        System.out.println("5. Eliminar Articulo");
+        System.out.println("0. Salir");
+    }
+
+    @Override
+    public void ejecutarMenu() {
+
+
+        int option;
+        mostrarMenu();
+        do{
+            option = LectorConsola.leerIntegrer("Ingrese una opción: ");
+
+            switch (option) {
+                case 1:
+                    agregarArticulo();
+                    break;
+                case 2:
+                    listarArticulos();
+                    break;
+                case 3:
+                    //buscarArticuloPorId();
+                    break;
+                case 4:
+                    //modificarArticulo();
+                    break;
+                case 5:
+                    //eliminarArticulo();
+                case 0:
+                    System.out.println("Saliendo...");
+                default:
+                    System.out.println("La opción ingresada es incorrecta");
+            }
+
+        } while (option != 0);
+
+    }
+
     public void agregarArticulo(){
-        if(dbCategoria.estaVacia()){
-            System.out.println("Debe ingresar una Categoria antes de ingresar un Articulo");
-            return;
-        }
 
         System.out.println("## AGREGAR ARTICULO ##");
         int code = LectorConsola.leerIntegrer("Ingrese el código: ");
@@ -35,7 +77,6 @@ public class ArticuloMenu {
         }
 
         String name = LectorConsola.leerTexto("Ingrese el nombre: ");
-        String description = LectorConsola.leerTexto("Ingrese la descripción");
         double precio = LectorConsola.leerDouble("Ingrese el precio: ");
         int stock = LectorConsola.leerIntegrer("Ingrese stock: ");
 
@@ -85,4 +126,5 @@ public class ArticuloMenu {
             System.out.println(a);
         }
     }
+
 }

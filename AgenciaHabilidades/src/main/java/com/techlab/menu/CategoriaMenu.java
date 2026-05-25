@@ -1,11 +1,12 @@
 package com.techlab.menu;
 
+import com.techlab.interfaces.Menu;
 import com.techlab.model.Articulo;
 import com.techlab.model.Categoria;
 import com.techlab.repository.Repositorio;
 import com.techlab.utils.LectorConsola;
 
-public class CategoriaMenu {
+public class CategoriaMenu implements Menu {
 
     private final Repositorio<Categoria> dbCategoria;
     private final Repositorio<Articulo> dbArticulo;
@@ -13,6 +14,54 @@ public class CategoriaMenu {
     public CategoriaMenu(Repositorio<Categoria> dbCategoria, Repositorio<Articulo> dbArticulo) {
         this.dbCategoria = dbCategoria;
         this.dbArticulo = dbArticulo;
+    }
+
+
+    @Override
+    public void mostrarMenu() {
+        System.out.println("\n--- MENÚ CATEGORIA ---");
+        System.out.println("1. Ingresar Categoria");
+        System.out.println("2. Listar Categorias");
+        System.out.println("3. Consulta Categoria por ID");
+        System.out.println("4. Modificar Categoria");
+        System.out.println("5. Eliminar Categoria");
+        System.out.println("0. Salir");
+    }
+
+    @Override
+    public void ejecutarMenu() {
+
+
+        int option;
+
+
+        do{
+            mostrarMenu();
+            option = LectorConsola.leerIntegrer("Ingrese una opción: ");
+            switch (option) {
+                case 1:
+                    ingresarCategoria();
+                    break;
+                case 2:
+                    listarCategorias();
+                    break;
+                case 3:
+                    int code = LectorConsola.leerIntegrer("Ingrese el código de la categoria");
+                    consultarPorCodigo(code);
+                    break;
+                case 4:
+                    modificarCategoria();
+                    break;
+                case 5:
+                    eliminarCategoria();
+                case 0:
+                    System.out.println("Saliendo...");
+                default:
+                    System.out.println("La opción ingresada es incorrecta");
+            }
+
+        } while (option != 0);
+
     }
 
     public void ingresarCategoria() {
@@ -30,7 +79,7 @@ public class CategoriaMenu {
         dbCategoria.create(categoria);
     }
 
-    public void listarCategoria(){
+    public void listarCategorias(){
         if(dbCategoria.listar().isEmpty()){
             System.out.println("No hay categorias para mostrar");
         }
@@ -40,8 +89,13 @@ public class CategoriaMenu {
         }
     }
 
-    public Categoria consultarPorCodigo(int codigo){
-        return dbCategoria.findByCodigo(codigo);
+    public void consultarPorCodigo(int codigo) {
+        Categoria categoria = dbCategoria.findByCodigo(codigo);
+        if (categoria == null) {
+            System.out.println("No existe categoría con el código: " + codigo);
+            return;
+        }
+        System.out.println(categoria);
     }
 
     public Categoria buscarPorNombre(String nombre){
@@ -53,10 +107,15 @@ public class CategoriaMenu {
         return null;
     }
 
-    public void modificar() {
+    // para buscar y devolver el objeto, usado internamente
+    private Categoria buscarPorCodigo(int codigo) {
+        return dbCategoria.findByCodigo(codigo);
+    }
+
+    public void modificarCategoria() {
         int code = LectorConsola.leerIntegrer("Ingrese el código de la Categoria que desea modificar: ");
 
-        if(consultarPorCodigo(code) == null){
+        if(buscarPorCodigo(code) == null){
             System.out.println("No existe categoria con el código ingresado " + code);
             return;
         }
@@ -79,7 +138,7 @@ public class CategoriaMenu {
         System.out.println("Categoria modificada con exito");
     }
 
-    public void eliminar(){
+    public void eliminarCategoria(){
         int code = LectorConsola.leerIntegrer("Ingrese el código de la Categoria a eliminar: ");
 
         if(dbCategoria.findByCodigo(code) == null){
